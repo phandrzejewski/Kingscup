@@ -1,0 +1,42 @@
+﻿<Window x:Class="Kingscup.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:gif="http://wpfanimatedgif.codeplex.com"
+        xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
+        xmlns:local="clr-namespace:Kingscup"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:viewModels="clr-namespace:Kingscup.ViewModels"
+        xmlns:views="clr-namespace:Kingscup.Views"
+        Title="KingsCup"
+        Width="1000"
+        Height="700"
+        Icon="Images/Game.png"
+        WindowStartupLocation="CenterScreen"
+        mc:Ignorable="d">
+
+    <Window.Resources>
+        <DataTemplate DataType="{x:Type viewModels:GameViewModel}">
+            <views:GameView/>
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type viewModels:RuleViewModel}">
+            <views:RuleView/>
+        </DataTemplate>
+    </Window.Resources>
+    <DockPanel>
+        <Menu  DockPanel.Dock="Top" Background="White">
+            <MenuItem Header="Optionen" Padding="0,2,5,0" Margin="0,0,10,0" Command="{Binding SettingCommand}">
+                <MenuItem.Icon>
+                    <Image Source="pack://application:,,,/Kingscup;component/Images/Settings.ico"/>
+                </MenuItem.Icon>                
+            </MenuItem>
+            <MenuItem Header="Speichern" Padding="0,2,5,0" Visibility="{Binding setSave}" Command="{Binding SaveCommand}">
+                <MenuItem.Icon>
+                    <Image Source="pack://application:,,,/Kingscup;component/Images/Diskette.png"></Image>
+                </MenuItem.Icon>
+            </MenuItem>
+        </Menu>
+        <ContentControl Content="{Binding currentViewModel}" />
+    </DockPanel>
+    
+</Window>
