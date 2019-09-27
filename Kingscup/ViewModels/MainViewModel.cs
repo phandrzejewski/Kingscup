@@ -19,7 +19,7 @@ namespace Kingscup.ViewModels
     {
         public MainViewModel()
         {
-            setSave = Visibility.Collapsed;
+            SetSave = Visibility.Collapsed;
         }
         public ViewModelBase _currentViewModel { get; set; }
         public ViewModelBase currentViewModel
@@ -36,7 +36,7 @@ namespace Kingscup.ViewModels
         }
 
         private Visibility _setSave { get; set; }
-        public Visibility setSave
+        public Visibility SetSave
         {
             get
             {
@@ -57,9 +57,9 @@ namespace Kingscup.ViewModels
             RuleViewModel rvm = (RuleViewModel)ListViewModel[1];
             GameViewModel gvm = (GameViewModel)ListViewModel[0];
 
-            foreach (var item in gvm.allCards)
+            foreach (var item in gvm.AllCards)
             {
-                foreach (var otherItem in rvm.allCards)
+                foreach (var otherItem in rvm.AllCards)
                 {
                     if (otherItem.Wert == item.Wert)
                     {
@@ -67,24 +67,24 @@ namespace Kingscup.ViewModels
                     }
                 }
             }
-            for (int i = 0; i < rvm.allCards.Count; i++)
+            for (int i = 0; i < rvm.AllCards.Count; i++)
             {
-                if (rvm.Rules[i] == rvm.allCards[i].Rule)
+                if (rvm.Rules[i] == rvm.AllCards[i].Rule)
                 {
                     istGleich++;
                 }
             }
             if (istGleich != 8)
             {
-                for (int i = 0; i < rvm.allCards.Count; i++)
+                for (int i = 0; i < rvm.AllCards.Count; i++)
                 {
-                    rvm.Rules[i] = rvm.allCards[i].Rule;
+                    rvm.Rules[i] = rvm.AllCards[i].Rule;
                 }
-                gvm.allCards.Clear();
-                gvm.initializePics();
+                gvm.AllCards.Clear();
+                gvm.InitializePics();
             }
             gvm.Player = rvm.Player;
-            setSave = Visibility.Collapsed;
+            SetSave = Visibility.Collapsed;
 
 
             currentViewModel = ListViewModel[0];
@@ -93,7 +93,7 @@ namespace Kingscup.ViewModels
         public ICommand SettingCommand => new DelegateCommand(x => Settings());
         private void Settings()
         {
-            setSave = Visibility.Visible;
+            SetSave = Visibility.Visible;
             currentViewModel = ListViewModel[1];
         }
 

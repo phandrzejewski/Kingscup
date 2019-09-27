@@ -16,10 +16,10 @@ namespace Kingscup.ViewModels
    {
       public GameViewModel(List<Card> list, List<string> Rules, ObservableCollection<Player> Player)
       {
-         allCards = list;
+         AllCards = list;
          this.Player = Player;
          this.Rules = Rules;
-         initializePics();
+         InitializePics();
       }
       
       private ObservableCollection<Player> _Player { get; set; }
@@ -50,7 +50,7 @@ namespace Kingscup.ViewModels
       }
 
       private List<Card> _allCards { get; set; }
-      public List<Card> allCards
+      public List<Card> AllCards
       {
          get
          {
@@ -86,7 +86,7 @@ namespace Kingscup.ViewModels
          }
       }
       private Card _currentCard { get; set; }
-      public Card currentCard
+      public Card CurrentCard
       {
          get
          {
@@ -113,7 +113,7 @@ namespace Kingscup.ViewModels
          }
       }
       private int _currentNumber { get; set; }
-      public int currentNumber
+      public int CurrentNumber
       {
          get
          {
@@ -151,8 +151,8 @@ namespace Kingscup.ViewModels
             OnPropertyChanged();
          }
       }
-      public ICommand PreviewMouseDownICommand => new DelegateCommand(x => getRandomCard());
-      public string getLetterForNumber(int number)
+      public ICommand PreviewMouseDownICommand => new DelegateCommand(x => GetRandomCard());
+      public string GetLetterForNumber(int number)
       {
          string letter;
          if (number == 0)
@@ -174,7 +174,7 @@ namespace Kingscup.ViewModels
          return letter;
       }
       public MessageBoxView msg;
-      public void getRandomCard()
+      public void GetRandomCard()
       {
         
          if (CurrentPlayerNumber >= Player.Count)
@@ -184,9 +184,9 @@ namespace Kingscup.ViewModels
 
          CurrentPlayer = Player[CurrentPlayerNumber];
         
-         if (allCards.Count == 0)
+         if (AllCards.Count == 0)
          {
-            initializePics();
+            InitializePics();
             Border = 0;
          }
          else
@@ -195,54 +195,54 @@ namespace Kingscup.ViewModels
                Border = 1;
 
             Random rnd = new Random();
-            int zufall = rnd.Next(0, allCards.Count);
-            currentCard = allCards[zufall];
+            int zufall = rnd.Next(0, AllCards.Count);
+            CurrentCard = AllCards[zufall];
 
-            allCards.Remove(currentCard);
-            currentNumber = allCards.Count;
-            if (currentNumber != 1)
+            AllCards.Remove(CurrentCard);
+            CurrentNumber = AllCards.Count;
+            if (CurrentNumber != 1)
             {
-               OutputText = "Noch " + currentNumber + " Karten im Deck";
+               OutputText = "Noch " + CurrentNumber + " Karten im Deck";
             }
             else
             {
-               OutputText = "Noch " + currentNumber + " Karte im Deck";
+               OutputText = "Noch " + CurrentNumber + " Karte im Deck";
             }
 
-            if (currentCard.Wert == 13)
+            if (CurrentCard.Wert == 13)
             {
                CountKings++;
                DrawnKings = "Gezogene Könige: " + CountKings;
             }
             if (CountKings == 4)
             {
-               currentCard.Rule = "";
+               CurrentCard.Rule = "";
                msg = new MessageBoxView(CurrentPlayer.PlayerName + "\nhat den letzten König gezogen!\nViel Spaß beim Saufen!\nProst");
                msg.ShowDialog();
 
-               allCards.Clear();
-               initializePics();
+               AllCards.Clear();
+               InitializePics();
             }
             CurrentPlayerNumber++;
          }
       }
-      public void initializePics()
+      public void InitializePics()
       {
          CountKings = 0;
          Border = 0;
          Random rnd = new Random();
-         allCards.Add(new Card(0, "pack://application:,,,/Kingscup;component/Cardbacks/Card" + rnd.Next(1, 8) + ".gif", ""));
+         AllCards.Add(new Card(0, "pack://application:,,,/Kingscup;component/Cardbacks/Card" + rnd.Next(1, 8) + ".gif", ""));
 
-         currentNumber = 32;
-         currentCard = allCards[0];
-         OutputText = "Noch " + currentNumber + " Karten im Deck";
+         CurrentNumber = 32;
+         CurrentCard = AllCards[0];
+         OutputText = "Noch " + CurrentNumber + " Karten im Deck";
          DrawnKings = "Gezogene Könige: " + CountKings;
-         allCards.Remove(currentCard);
+         AllCards.Remove(CurrentCard);
          for (var i = 7; i < 15; i++)
          {
             for (var j = 0; j < 4; j++)
             {
-               this.allCards.Add(new Card(i, "pack://application:,,,/Kingscup;component/Cards/" + i + getLetterForNumber(j) + ".png", Rules[i - 7]));
+               this.AllCards.Add(new Card(i, "pack://application:,,,/Kingscup;component/Cards/" + i + GetLetterForNumber(j) + ".png", Rules[i - 7]));
             }
          }
       }

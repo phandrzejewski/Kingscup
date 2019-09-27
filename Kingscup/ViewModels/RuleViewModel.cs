@@ -16,21 +16,21 @@ namespace Kingscup.ViewModels
         public RuleViewModel(List<Card> list, List<string> Rules, ObservableCollection<Player> Player)
         {
             this.Rules = Rules;
-            tempList = list;
+            TempList = list;
             this.Player = Player;
 
             bool vorhanden = false;
-            allCards = new List<Card>();
+            AllCards = new List<Card>();
             foreach (var item in list)
             {
-                foreach (var otherItem in allCards)
+                foreach (var otherItem in AllCards)
                 {
                     if (otherItem.Wert == item.Wert)
                         vorhanden = true;
                 }
                 if (!vorhanden)
                 {
-                    allCards.Add(item);
+                    AllCards.Add(item);
                 }
                 vorhanden = false;
             }
@@ -68,7 +68,7 @@ namespace Kingscup.ViewModels
         }
 
         private List<Card> _allCards { get; set; }
-        public List<Card> allCards
+        public List<Card> AllCards
         {
             get
             {
@@ -80,7 +80,7 @@ namespace Kingscup.ViewModels
                 OnPropertyChanged();
             }
         }
-        public List<Card> tempList { get; set; }        
+        public List<Card> TempList { get; set; }        
         private List<string> _Rules { get; set; }
         public List<string> Rules
         {
