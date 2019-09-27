@@ -48,20 +48,21 @@ namespace Kingscup.ViewModels
 
         private void InitAmountPlayers()
         {
-            AmountPlayers = new List<int>();
-
-            AmountPlayers.Add(1);
-            AmountPlayers.Add(2);
-            AmountPlayers.Add(3);
-            AmountPlayers.Add(4);
-            AmountPlayers.Add(5);
-            AmountPlayers.Add(6);
-            AmountPlayers.Add(7);
-            AmountPlayers.Add(8);
-            AmountPlayers.Add(9);
-            AmountPlayers.Add(10);
-            AmountPlayers.Add(11);
-            AmountPlayers.Add(12);
+            AmountPlayers = new List<int>
+            {
+                1,
+                2,
+                3,
+                4,
+                5,
+                6,
+                7,
+                8,
+                9,
+                10,
+                11,
+                12
+            };
 
             SelectedAmountPlayers = 1;
         }
