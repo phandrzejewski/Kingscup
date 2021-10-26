@@ -11,12 +11,11 @@ using System.Windows.Input;
 
 namespace Kingscup.ViewModels
 {
-    class RuleViewModel : ViewModelBase
+    public class RuleViewModel : ViewModelBase
     {
         public RuleViewModel(List<Card> list, List<string> Rules, ObservableCollection<Player> Player)
         {
             this.Rules = Rules;
-            TempList = list;
             this.Player = Player;
 
             bool vorhanden = false;
@@ -42,7 +41,7 @@ namespace Kingscup.ViewModels
         {
             for (int i = 0; i < SelectedAmountPlayers; i++)
             {
-                Player.Add(new Player("Player"));
+                Player.Add(new Player($"Player"));
             }
         }
 
@@ -80,7 +79,6 @@ namespace Kingscup.ViewModels
                 OnPropertyChanged();
             }
         }
-        public List<Card> TempList { get; set; }        
         private List<string> _Rules { get; set; }
         public List<string> Rules
         {
@@ -120,7 +118,7 @@ namespace Kingscup.ViewModels
             {
                 for (int i = 0; i < (SelectedAmountPlayers - cur); i++)
                 {
-                    list.Add(new Player("Player"));
+                    list.Add(new Player($"Player"));
                 }               
             }
             Player = ConvertToObservable.ToObservableCollection(list);

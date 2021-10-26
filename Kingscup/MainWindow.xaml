@@ -9,7 +9,7 @@
         xmlns:viewModels="clr-namespace:Kingscup.ViewModels"
         xmlns:views="clr-namespace:Kingscup.Views"
         Title="KingsCup"
-        Width="1000"
+        Width="1200"
         Height="700"
         Icon="Images/Game.png"
         WindowStartupLocation="CenterScreen"
@@ -28,15 +28,20 @@
             <MenuItem Header="Optionen" Padding="0,2,5,0" Margin="0,0,10,0" Command="{Binding SettingCommand}">
                 <MenuItem.Icon>
                     <Image Source="pack://application:,,,/Kingscup;component/Images/Settings.ico"/>
-                </MenuItem.Icon>                
+                </MenuItem.Icon>
             </MenuItem>
-            <MenuItem Header="Speichern" Padding="0,2,5,0" Visibility="{Binding setSave}" Command="{Binding SaveCommand}">
+            <MenuItem Header="Speichern" Padding="0,2,5,0" Visibility="{Binding SetSave}" Command="{Binding SaveCommand}">
                 <MenuItem.Icon>
                     <Image Source="pack://application:,,,/Kingscup;component/Images/Diskette.png"></Image>
                 </MenuItem.Icon>
             </MenuItem>
+            <MenuItem Header="Abbrechen" Padding="0,2,5,0" Visibility="{Binding SetSave}" Command="{Binding AbortCommand}">
+                <MenuItem.Icon>
+                    <Image Source="pack://application:,,,/Kingscup;component/Images/Abort.png"></Image>
+                </MenuItem.Icon>
+            </MenuItem>
         </Menu>
-        <ContentControl Content="{Binding currentViewModel}" />
+        <ContentControl Content="{Binding CurrentViewModel}" />
     </DockPanel>
-    
+
 </Window>

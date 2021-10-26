@@ -20,7 +20,22 @@ namespace Kingscup
         MainViewModel mvm = new MainViewModel();
         RuleViewModel rvm;
         GameViewModel gvm;
-        public List<string> regeln = new List<string>() { "Links trinken", "Selbst trinken", "Rechts trinken", "Regel ausdenken", "Alle Männer trinken", "Alle Frauen trinken", "Schluck in die Mitte geben", "Alle Trinken" };
+        public List<string> regeln = new List<string>()
+        {
+            "Verteile 2 Schlücke",                                              //2
+            "Trink 1",                                                          //3
+            "Verteile 2, Trinke 2",                                             //4
+            "Alle Männer trinken",                                              //5
+            "Alle Damen trinken",                                               //6
+            "Links trinken",                                                    //7
+            "Trinkpartner",                                                     //8
+            "Rechts trinken",                                                   //9
+            "Alle Trinken",                                                     //10
+            "Kategorie ausdenken - Wer zuerst etwas doppeltes sagt verliert!",  //Bube
+            "Fragenmeister - Dem Fragenmeister bloß keine Fragen beantworten!", //Dame
+            "Schluck in die Mitte geben",                                       //Koenig
+            "Regel ausdenken"                                                   //Ass
+        };
 
         public App()
         {
@@ -35,12 +50,10 @@ namespace Kingscup
 
             main.Closing += mvm.OnWindowClosing;
 
-            mvm.currentViewModel = gvm;
+            mvm.CurrentViewModel = gvm;
 
             main.DataContext = mvm;
             main.Show();
-
         }
-
     }
 }

@@ -22,7 +22,7 @@ namespace Kingscup.ViewModels
             SetSave = Visibility.Collapsed;
         }
         public ViewModelBase _currentViewModel { get; set; }
-        public ViewModelBase currentViewModel
+        public ViewModelBase CurrentViewModel
         {
             get
             {
@@ -50,16 +50,33 @@ namespace Kingscup.ViewModels
         }
 
         public ICommand SaveCommand => new DelegateCommand(x => Save());
+
+        public ICommand AbortCommand => new DelegateCommand(x => Abort());
+
+        private RuleViewModel RuleViewModel { get; set; }
+        private GameViewModel GameViewModel { get; set; }
+        private List<string> CurrentRules { get; set; }
+        private List<Card> CurrentCards { get; set; }
+        private int CurrentCountPlayers { get; set; }
+        private ObservableCollection<Player> CurrentPlayers { get; set; }
+
+        private void Abort()
+        {
+            SetSave = Visibility.Collapsed;
+            RuleViewModel.Rules = CurrentRules;
+            RuleViewModel.SelectedAmountPlayers = CurrentCountPlayers;
+            RuleViewModel.Player = CurrentPlayers;
+            RuleViewModel.AllCards = CurrentCards;
+            CurrentViewModel = ListViewModel[0];
+        }
+
         private void Save()
         {
             int istGleich = 0;
-
-            RuleViewModel rvm = (RuleViewModel)ListViewModel[1];
-            GameViewModel gvm = (GameViewModel)ListViewModel[0];
-
-            foreach (var item in gvm.AllCards)
+           
+            foreach (var item in GameViewModel.AllCards)
             {
-                foreach (var otherItem in rvm.AllCards)
+                foreach (var otherItem in RuleViewModel.AllCards)
                 {
                     if (otherItem.Wert == item.Wert)
                     {
@@ -67,34 +84,40 @@ namespace Kingscup.ViewModels
                     }
                 }
             }
-            for (int i = 0; i < rvm.AllCards.Count; i++)
+            for (int i = 0; i < RuleViewModel.AllCards.Count; i++)
             {
-                if (rvm.Rules[i] == rvm.AllCards[i].Rule)
+                if (RuleViewModel.Rules[i] == RuleViewModel.AllCards[i].Rule)
                 {
                     istGleich++;
                 }
             }
-            if (istGleich != 8)
+            if (istGleich != 13)
             {
-                for (int i = 0; i < rvm.AllCards.Count; i++)
+                for (int i = 0; i < RuleViewModel.AllCards.Count; i++)
                 {
-                    rvm.Rules[i] = rvm.AllCards[i].Rule;
+                    RuleViewModel.Rules[i] = RuleViewModel.AllCards[i].Rule;
                 }
-                gvm.AllCards.Clear();
-                gvm.InitializePics();
+                GameViewModel.AllCards.Clear();
+                GameViewModel.InitializePics();
             }
-            gvm.Player = rvm.Player;
+            GameViewModel.Player = RuleViewModel.Player;
             SetSave = Visibility.Collapsed;
 
-
-            currentViewModel = ListViewModel[0];
+            CurrentViewModel = ListViewModel[0];
         }
 
         public ICommand SettingCommand => new DelegateCommand(x => Settings());
         private void Settings()
         {
             SetSave = Visibility.Visible;
-            currentViewModel = ListViewModel[1];
+
+            RuleViewModel = (RuleViewModel)ListViewModel[1];
+            GameViewModel = (GameViewModel)ListViewModel[0];
+            CurrentRules = RuleViewModel.Rules;
+            CurrentCountPlayers = RuleViewModel.SelectedAmountPlayers;
+            CurrentPlayers = RuleViewModel.Player;
+            CurrentCards = RuleViewModel.AllCards;
+            CurrentViewModel = ListViewModel[1];
         }
 
         private List<ViewModelBase> _ListViewModels = new List<ViewModelBase>();
@@ -111,12 +134,12 @@ namespace Kingscup.ViewModels
             }
 
         }
-      public void OnWindowClosing(object sender, CancelEventArgs e)
-      {
-            if (MessageBox.Show("Willst du wirklich beenden?", "Achtung", MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.No)
-         {
-            e.Cancel = true;
-         }
-      }
-   }
+        public void OnWindowClosing(object sender, CancelEventArgs e)
+        {
+            if (MessageBox.Show("Willst du wirklich beenden?", "Willst du wirklich beenden?", MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.No)
+            {
+                e.Cancel = true;
+            }            
+        }
+    }
 }

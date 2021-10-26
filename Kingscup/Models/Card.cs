@@ -12,13 +12,13 @@ namespace Kingscup.Models
     {
         public int Wert { get; set; }
         public string Name { get; set; }
-        private string _Rule { get; set; }
+        private string _rule { get; set; }
         public string Rule
         {
-            get { return _Rule; }
+            get => _rule;
             set
             {
-                _Rule = value;
+                _rule = value;
                 OnPropertyChanged();
             }
         }

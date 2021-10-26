@@ -8,11 +8,11 @@ using System.Threading.Tasks;
 
 namespace Kingscup.Models
 {
-    class Player : INotifyPropertyChanged
+    public class Player : INotifyPropertyChanged
     {
 
         public string PlayerName { get; set; }
-               
+
         public Player(string PlayerName)
         {
             this.PlayerName = PlayerName;
